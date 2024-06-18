@@ -1,0 +1,20 @@
+<!-- scan.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>掃描頁面</title>
+  <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body class="flex-display">
+  <div class="form-container">
+    <h1>請掃描或上傳菜單</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+      <input type="file" name="menu" multiple>
+      <button type="submit">上傳菜單</button>
+    </form>
+  </div>
+</body>
+</html>
