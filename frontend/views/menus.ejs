@@ -1,0 +1,46 @@
+<!-- menus.ejs -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>菜單</title>
+  <link rel="stylesheet" href="/styles/style.css">
+</head>
+
+<body class="flex-display">
+  <div class="form-container">
+    <h1>菜單列表</h1>
+    <div>
+      <h2>完整菜單列表</h2>
+      <ul id="menu-list">
+        <% menus.forEach((menu) => { %>
+          <li class="menu-item">
+            <span><%= menu.name %> | 價錢: <%= menu.price %> | 數量: <%= menu.quantity %></span>
+            <button onclick="addToOrder(<%= menu.index %>)">+</button>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+
+    <div>
+      <h2>點單列表</h2>
+      <ul id="order-list">
+        <!-- 點單列表將在這裡動態生成 -->
+      </ul>
+    </div>
+
+    <div>
+      <h2>客製化列表</h2>
+      <ul id="custom-list">
+        <!-- 客製化列表將在這裡動態生成 -->
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- 將 menus 資料作為 JSON 字串嵌入到頁面中 -->
+  <script id="menus-data" type="application/json"><%= JSON.stringify(menus) %></script>
+  <!-- 引用外部 JavaScript 檔 -->
+  <script src="/scripts/menu.js"></script>
+</body>
+</html>
