@@ -66,6 +66,50 @@ app.get('/menus', (req, res) => {
   res.render('menus', { menus });
 });
 
+// 編輯菜單頁面
+app.get('/edit-menu', (req, res) => {
+  const jsonFilePath = path.join(__dirname, 'menu.json');
+  const menus = JSON.parse(fs.readFileSync(jsonFilePath, 'utf-8'));
+  res.render('edit', { menus });
+});
+
+// 更新菜單請求
+app.post('/update-menu', (req, res) => {
+  const updatedMenus = req.body.menus.map(menu => ({
+    name: menu.name,
+    price: parseFloat(menu.price),
+    quantity: parseInt(menu.quantity),
+    index: parseInt(menu.index),
+  }));
+
+  const newFileName = req.body.newFileName;
+  const jsonFilePath = path.join(__dirname, 'menu.json');
+  const newJsonFilePath = path.join(__dirname, 'uploads', `${newFileName}.json`);
+  fs.writeFileSync(jsonFilePath, JSON.stringify(updatedMenus, null, 2), 'utf-8');
+  fs.writeFileSync(newJsonFilePath, JSON.stringify(updatedMenus, null, 2), 'utf-8');
+  res.redirect('/menus');
+});
+
+// 載入菜單頁面
+app.get('/load', (req, res) => {
+  const jsonDir = path.join(__dirname, 'uploads');
+  const files = fs.readdirSync(jsonDir).filter(file => file.endsWith('.json'));
+  res.render('load', { files });
+});
+
+// 處理載入的菜單
+app.post('/load-menu', (req, res) => {
+  const selectedFile = req.body.selectedFile;
+  const jsonFilePath = path.join(__dirname, 'uploads', selectedFile);
+  let menus = JSON.parse(fs.readFileSync(jsonFilePath, 'utf-8'));
+
+  // // Filter out menus with empty names
+  // menus = menus.filter(menu => menu.name && menu.name.trim() !== '');
+
+  fs.writeFileSync(path.join(__dirname, 'menu.json'), JSON.stringify(menus, null, 2), 'utf-8');
+  res.redirect('/menus');
+});
+
 // 啟動伺服器
 app.listen(port, () => {
   console.log(`Server is listening at http://localhost:${port}`);

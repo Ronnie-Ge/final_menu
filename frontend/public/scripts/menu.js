@@ -5,19 +5,23 @@ const orderList = [];
 const customList = [];
 
 // 初始化 orderList，將數量大於 0 的菜單項添加進去
-menus.forEach(menu => {
-  if (menu.quantity > 0) {
-    orderList.push({ ...menu });
-  }
-});
+function initOrderList() {
+  menus.forEach(menu => {
+    if (menu.quantity > 0) {
+      orderList.push({ ...menu });
+    }
+  });
+}
 
 // 頁面加載後渲染初始點單列表
 document.addEventListener('DOMContentLoaded', () => {
+  initOrderList();
   renderOrderList();
 });
 
 function addToOrder(index) {
   const menu = menus[index];
+  console.log("index: ", index, "menu: ", menu)
   const existingOrder = orderList.find(order => order.name === menu.name);
 
   if (existingOrder) {
