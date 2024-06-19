@@ -1,0 +1,29 @@
+<!-- views/edit.ejs -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>編輯菜單</title>
+  <link rel="stylesheet" href="/styles/style.css">
+</head>
+
+<body class="flex-display">
+  <div class="form-container">
+    <h1>編輯菜單</h1>
+    <form action="/update-menu" method="post">
+      <ul id="menu-list">
+        <% menus.forEach((menu) => { %>
+          <li class="edit-item">
+            <p>名稱: <input type="text" name="menus[<%= menu.index %>][name]" value="<%= menu.name %>" /> </p>
+            <p>價錢: <input type="number" name="menus[<%= menu.index %>][price]" value="<%= menu.price %>" /></p>
+            <p>數量: <input type="number" name="menus[<%= menu.index %>][quantity]" value="<%= menu.quantity %>" /></p>
+            <input type="hidden" name="menus[<%= menu.index %>][index]" value="<%= menu.index %>" />
+          </li>
+        <% }) %>
+      </ul>
+      <button type="submit">更新菜單</button>
+      <input type="text" name="newFileName" placeholder="輸入存檔名稱" required>
+    </form>
+  </div>
+</body>
+</html>

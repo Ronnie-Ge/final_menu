@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>載入菜單</title>
+  <link rel="stylesheet" href="/styles/style.css">
+</head>
+
+<body class="flex-display">
+  <div class="form-container">
+    <h1>載入菜單</h1>
+    <form action="/load-menu" method="post">
+      <select name="selectedFile" required>
+        <% files.forEach((file) => { %>
+          <option value="<%= file %>"><%= file %></option>
+        <% }) %>
+      </select>
+      <button type="submit">載入菜單</button>
+    </form>
+  </div>
+</body>
+</html>
